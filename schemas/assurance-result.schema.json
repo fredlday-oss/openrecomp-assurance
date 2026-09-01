@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openrecomp.org/schemas/assurance/result-0.1.schema.json",
+  "title": "OpenRecomp Assurance Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fixture_id", "verdict", "classification", "bounded_claim", "checks"],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "fixture_id": {"type": "string", "minLength": 1},
+    "verdict": {"enum": ["PASS", "FAIL"]},
+    "classification": {"enum": ["PROVEN", "BOUNDED", "CANDIDATE", "FAIL"]},
+    "bounded_claim": {"type": "string", "minLength": 1},
+    "checks": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"enum": ["PASS", "FAIL", "NOT_RUN"]}
+    },
+    "seeded_divergences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["detected", "total"],
+      "properties": {
+        "detected": {"type": "integer", "minimum": 0},
+        "total": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}
