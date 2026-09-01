@@ -1,0 +1,19 @@
+You are bootstrapping the public repository `openrecomp-assurance` using the attached OPENRECOMP_ASSURANCE_BOOTSTRAP_V1 package.
+
+Read BOOTSTRAP_HANDOFF.md, README.md, docs/*, schemas/*, and RUNBOOK.md before modifying code.
+
+Goal: implement the smallest credible v0.1 RV32I assurance reference path using the REAL OpenRecomp translation path while keeping translation semantics outside this repository.
+
+Hard requirements:
+- rights-safe synthetic/open fixtures only;
+- fail-closed schemas and evidence handling;
+- exact artifact/provenance hashes;
+- replay stability;
+- clean baseline repeatability where claimed;
+- observable equivalence for the defined equivalent RV32I pair;
+- diagnose and improve the previous seeded-divergence result from 3/5 to 5/5 without seed-specific hacks;
+- machine-readable assurance-result.json plus RESULT.md;
+- explicit PROVEN/BOUNDED/CANDIDATE classification;
+- no release/tag/push that overstates evidence.
+
+Work autonomously until the HUMAN GATE in BOOTSTRAP_HANDOFF.md. At the gate, output a concise evidence report with commands run, changed files, test counts, hashes, 5/5 divergence evidence, remaining limitations, and the next recommended frontier.
