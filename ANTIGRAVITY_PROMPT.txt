@@ -1,19 +1,70 @@
-You are bootstrapping the public repository `openrecomp-assurance` using the attached OPENRECOMP_ASSURANCE_BOOTSTRAP_V1 package.
+OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1
 
-Read BOOTSTRAP_HANDOFF.md, README.md, docs/*, schemas/*, and RUNBOOK.md before modifying code.
+Repository: fredlday-oss/openrecomp-assurance
+Working branch: feature/rv32i-v0.1-real-v1
+Do not work on main.
 
-Goal: implement the smallest credible v0.1 RV32I assurance reference path using the REAL OpenRecomp translation path while keeping translation semantics outside this repository.
+Read first:
+- docs/workplans/OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1.md
+- BOOTSTRAP_HANDOFF.md
+- README.md
+- docs/*
+- schemas/*
+- RUNBOOK.md
 
-Hard requirements:
-- rights-safe synthetic/open fixtures only;
-- fail-closed schemas and evidence handling;
-- exact artifact/provenance hashes;
-- replay stability;
-- clean baseline repeatability where claimed;
-- observable equivalence for the defined equivalent RV32I pair;
-- diagnose and improve the previous seeded-divergence result from 3/5 to 5/5 without seed-specific hacks;
-- machine-readable assurance-result.json plus RESULT.md;
-- explicit PROVEN/BOUNDED/CANDIDATE classification;
-- no release/tag/push that overstates evidence.
+Goal
+Implement the smallest credible v0.1 RV32I assurance reference path using a REAL OpenRecomp lift/translation path while keeping translation semantics outside this repository.
 
-Work autonomously until the HUMAN GATE in BOOTSTRAP_HANDOFF.md. At the gate, output a concise evidence report with commands run, changed files, test counts, hashes, 5/5 divergence evidence, remaining limitations, and the next recommended frontier.
+Required workflow
+1. Verify git status, current branch, remote and base commit.
+2. Locate or clone the public OpenRecomp feasibility repository required for the real RV32I path. Record its exact commit SHA. Do not modify that repository unless a clearly isolated adapter change is unavoidable; prefer consuming versioned outputs.
+3. Use rights-safe synthetic/open RV32I fixtures only.
+4. Build two intentionally different RV32I ELF artifacts with equivalent expected observable behaviour.
+5. Run each through the real OpenRecomp lift/translation path.
+6. Capture source ELF, generated IR/C, host executable, metadata, toolchain and OpenRecomp commit hashes.
+7. Normalize observations into this repository's versioned schemas.
+8. Prove baseline A/B observable agreement.
+9. Replay both baselines and prove replay stability.
+10. Repeat a clean baseline build/run to measure repeatability without overstating byte-for-byte identity where toolchain metadata differs.
+11. Implement five distinct semantic divergence seeds covering the classes in the workplan.
+12. Diagnose the previous bounded 3/5 result and improve principled detection to 5/5. No seed-name checks, hard-coded expected hashes, or mutation-specific bypasses are allowed.
+13. Run a clean baseline after seeded tests to prove no state contamination.
+14. Make the bounded suite runnable through CI or document the exact blocker if hosted CI cannot provide the required toolchain.
+
+Mandatory evidence tree
+out/
+  result.json
+  RESULT.md
+  provenance/artifact-manifest.json
+  observations/baseline_a.json
+  observations/baseline_b.json
+  observations/replay_a.json
+  observations/replay_b.json
+  divergence/seed_01.json ... seed_05.json
+  hashes/sha256.txt
+  logs/
+
+Verdict rules
+- Emit V0_1_GO only if every mandatory acceptance item in the workplan passes, including 5/5 divergence detection.
+- Otherwise emit V0_1_NO_GO.
+- Preserve failed evidence. Never convert an incomplete test into PASS.
+- Keep PROVEN, BOUNDED, CANDIDATE and FAILED claims distinct.
+- V0_1_GO is a bounded RV32I assurance result only; never describe it as universal semantic equivalence or proven cross-architecture assurance.
+
+Human gate
+Do not merge to main, tag v0.1.0, create a GitHub release, or make funding claims from the result.
+
+At the gate return:
+- verdict;
+- exact OpenRecomp commit;
+- exact openrecomp-assurance commit;
+- commands run;
+- changed files;
+- baseline hashes and observations;
+- replay evidence;
+- seeded divergence table with 5/5 requirement;
+- schema/CI results;
+- limitations;
+- NEXT FRONTIER.
+
+If blocked, stop only at BLOCKED_BY_SPECIFIC_MISSING_EVIDENCE and state the exact missing artifact/tool/path/semantic fact needed to continue. Do not guess.
