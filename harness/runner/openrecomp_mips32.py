@@ -37,8 +37,8 @@ SEEDS = (
     (
         "seed-andi-mask",
         "0000103c 311700ff",
-        "0000103c 311700fe",
-        "change a valid andi mask from 0x00ff to 0x00fe",
+        "0000103c 311700f0",
+        "change a valid andi mask from 0x00ff to 0x00f0",
     ),
     (
         "seed-final-arithmetic",
