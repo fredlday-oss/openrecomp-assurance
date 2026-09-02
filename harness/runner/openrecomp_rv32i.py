@@ -79,9 +79,9 @@ def baseline_source(canonical: str, label: str) -> str:
     # Non-allocating ELF section: changes source/ELF provenance without changing
     # executable memory or the RV32I program's defined behavior.
     note = (
-        '__asm__(".section .assurance_note,\\"\\",@progbits\\n"\\n'
-        f'        ".asciz \\"openrecomp-assurance:{label}\\\\0\\"\\n"\\n'
-        '        ".previous\\n");\\n\\n'
+        '__asm__(".section .assurance_note,\\"\\",@progbits\\n"\n'
+        f'        ".asciz \\"openrecomp-assurance:{label}\\\\0\\"\\n"\n'
+        '        ".previous\\n");\n\n'
     )
     return note + canonical
 
@@ -202,7 +202,6 @@ class OpenRecompRV32IRunner:
         self._tool("validate_module_v1.py", module, ir, self.host_contract)
         self._tool("run_core_api_v1.py", module, ir, self.host_contract, core)
 
-        # Repeat generation from the same normalized evidence before compiling.
         self._tool("aot_c_backend_v1.py", module, ir, self.host_contract, aot_a)
         self._tool("aot_c_backend_v1.py", module, ir, self.host_contract, aot_b)
         if aot_a.read_bytes() != aot_b.read_bytes():
