@@ -52,6 +52,12 @@ Two independently built RV32I inputs that are expected to be semantically equiva
 
 A result must never be promoted from `CANDIDATE` or `BOUNDED` to `PROVEN` merely because one run succeeds.
 
+## Current v0.1 candidate
+
+`OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1` is implemented on PR #1 and pins OpenRecomp commit `53d0bce144356f2b4ee7120c5f8c13cb82c4bf90`. Hosted CI has produced a bounded `PASS / PROVEN` result with two byte-distinct equivalent RV32I ELFs, exact baseline observable agreement, replay stability, repeatable generated AOT evidence, fail-closed missing evidence and **5/5** seeded semantic divergence detection.
+
+The compact machine result is retained under `evidence/rv32i-v0.1-real-v1/`. This is a release candidate, not a `v0.1.0` release: the PR must pass final CI, be human-reviewed/merged, and pass the same real gate on `main` before a tag is considered.
+
 ## Non-goals
 
 - Universal proof of arbitrary binary equivalence.
@@ -66,9 +72,10 @@ A result must never be promoted from `CANDIDATE` or `BOUNDED` to `PROVEN` merely
 - `schemas/` — versioned JSON contracts.
 - `harness/` — runner, replay and comparison implementation seams.
 - `fixtures/rv32i/` — rights-safe synthetic/reference fixtures only.
-- `tests/` — baseline, seeded-divergence and reproducibility gates.
-- `tools/` — validation and helper tooling.
-- `.github/workflows/` — CI release gates.
+- `tests/` — baseline, seeded-divergence, schema and reproducibility gates.
+- `tools/` — validation and public-safety tooling.
+- `evidence/` — compact durable machine-result snapshots; full generated bundles remain reproducible CI artifacts.
+- `.github/workflows/` — CI assurance gates.
 
 ## Status vocabulary
 
@@ -79,8 +86,8 @@ A result must never be promoted from `CANDIDATE` or `BOUNDED` to `PROVEN` merely
 
 ## First release gate
 
-`v0.1.0` must not be tagged until `docs/release-gate-v0.1.md` is fully satisfied, including 5/5 seeded divergence detection.
+`v0.1.0` must not be tagged until `docs/release-gate-v0.1.md` is fully satisfied on the candidate and the same workflows pass after merge on `main`.
 
 ## Licence
 
-Recommended: Apache-2.0 for code. Documentation/specification licensing should be stated explicitly before the first public release.
+Code and repository documentation are distributed under Apache License 2.0; see `LICENSE`.

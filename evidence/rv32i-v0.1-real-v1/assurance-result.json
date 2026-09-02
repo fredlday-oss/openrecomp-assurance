@@ -1,0 +1,21 @@
+{
+  "bounded_claim": "For the rights-safe E07 RV32I equivalent fixture pair and five deliberately seeded source variants, OpenRecomp at the pinned commit produces reproducible equivalent defined observables for the pair and detects every seeded semantic divergence.",
+  "checks": {
+    "baseline_observables_match": "PASS",
+    "clean_artifact_repeatability": "PASS",
+    "generated_schema_validation": "PASS",
+    "missing_evidence_fails_closed": "PASS",
+    "real_openrecomp_commit": "PASS",
+    "replay_stability": "PASS",
+    "seeded_divergences_5_of_5": "PASS",
+    "source_hashes_distinct": "PASS"
+  },
+  "classification": "PROVEN",
+  "fixture_id": "openrecomp-rv32i-v0.1-real-v1",
+  "schema_version": "0.1",
+  "seeded_divergences": {
+    "detected": 5,
+    "total": 5
+  },
+  "verdict": "PASS"
+}
