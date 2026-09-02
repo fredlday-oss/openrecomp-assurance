@@ -56,10 +56,12 @@ V1 requires 5/5 detection. Each seed changes exactly one valid instruction recor
 1. `seed-addiu-immediate` — `addiu` immediate `0x1234 -> 0x1235`.
 2. `seed-ori-immediate` — `ori` immediate `0x00f0 -> 0x00f1`.
 3. `seed-shift-amount` — valid `sll` shift amount `4 -> 3`.
-4. `seed-andi-mask` — `andi` mask `0x00ff -> 0x00fe`.
+4. `seed-andi-mask` — `andi` mask `0x00ff -> 0x00f0`.
 5. `seed-final-arithmetic` — final valid `addu -> subu`.
 
 A seed counts as detected only when at least one defined semantic observable differs from baseline. The runner separately requires reference/Core/GCC/Clang agreement for the seeded result before the seed can contribute to a successful gate.
+
+The initial validation attempt used `0x00ff -> 0x00fe` for seed 4. For the canonical `r8=0x1234` value that mutation is semantically neutral (`0x1234 & 0x00ff == 0x1234 & 0x00fe == 0x34`) and was correctly reported as undetected. The corrected seed clears the low nibble (`0x00f0`), producing a genuine semantic mutation while keeping the instruction valid.
 
 ## Fail-closed conditions
 
