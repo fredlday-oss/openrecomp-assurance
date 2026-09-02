@@ -6,7 +6,7 @@ Open infrastructure for deterministic binary translation assurance, reproducible
 
 `openrecomp-assurance` is the architecture-neutral assurance layer for binary translation systems. It does **not** replace a lifter or translator. It verifies what a translation pipeline produced and records enough evidence for another developer to reproduce, replay, compare, and challenge that result.
 
-The released reference integration is OpenRecomp RV32I. MIPS32 Real V1 is the next bounded guest-architecture integration under validation. Additional translation systems and guest architectures should be able to integrate through the same contracts.
+The released v0.1 reference is RV32I. Current protected `main` also contains bounded real MIPS32 assurance and bounded real MIPS32 ELF-ingestion assurance, all reproduced under independent reference/Core/native-AOT comparison gates. Additional translation systems and guest architectures should be able to integrate through the same contracts.
 
 ## Assurance pipeline
 
@@ -41,16 +41,39 @@ assurance-result.json
 
 The release proves only its stated RV32I E07 scope: byte-distinct equivalent inputs, exact observable agreement, replay stability, repeatable generated AOT evidence, fail-closed missing evidence, and **5/5** seeded semantic-divergence detection. Compact machine evidence is retained under `evidence/rv32i-v0.1-real-v1/`.
 
-## Current MIPS32 candidate
+## Current protected main / v0.2 candidate scope
 
-`OPENRECOMP_ASSURANCE_MIPS32_REAL_V1` extends the same assurance discipline to the rights-safe little-endian MIPS32 Expansion V1 `logic-shift` fixture. It adds an independent MIPS32 reference oracle and requires agreement across:
+The v0.2 release candidate is based on assurance `main` commit `f8c1aa32c57ad2fca64b6e011ab98f21e963047d` and includes three bounded real assurance integrations:
+
+### RV32I Real V1
+
+The released RV32I E07 proof remains green and protected.
+
+### MIPS32 Real V1
+
+`OPENRECOMP_ASSURANCE_MIPS32_REAL_V1` applies the same assurance discipline to the rights-safe little-endian MIPS32 Expansion V1 `logic-shift` fixture. It requires agreement across:
 
 - independent MIPS32 reference execution;
 - normalized Core V1;
 - GCC-compiled native AOT;
 - Clang-compiled native AOT.
 
-The candidate uses two byte-distinct but instruction-equivalent source records, exact replays, deterministic generated artifacts, complete GPR/HI/LO state hashing, and **5/5** specified valid semantic mutations. The claim remains fixture-bounded; it is not general MIPS32 equivalence.
+The gate uses two byte-distinct but instruction-equivalent inputs, exact replays, deterministic generated artifacts, complete GPR/HI/LO state hashing, and **5/5** specified valid semantic mutations. The claim remains fixture-bounded; it is not general MIPS32 equivalence.
+
+### MIPS32 ELF Real V1
+
+`OPENRECOMP_ASSURANCE_MIPS32_ELF_REAL_V1` extends that bounded method across a real GNU-linked little-endian ELF32 `ET_EXEC` / `EM_MIPS` ingestion boundary. The assurance runner independently parses the ELF container, verifies entry/function/semantic `.text` facts, preserves full-ELF provenance, requires exact rebuild/replay stability, and runs every baseline/replay/seed through reference, Core, GCC AOT and Clang AOT.
+
+This gate pins merged OpenRecomp `main` commit `fa9f9b75aa421728de7f0ff1a0d068ef6f40201e` and detects **5/5** full-ELF semantic mutations. It remains intentionally text-only and does not claim arbitrary ELF loading, dynamic linking, relocation/data-section semantics, big-endian ELF or full MIPS32 ISA coverage.
+
+## Protected checks
+
+The active `Protect main` ruleset requires these four stable contexts with strict required-status-check policy enabled:
+
+- `schema-and-tests`
+- `rv32i-real-v1`
+- `mips32-real-v1`
+- `mips32-elf-real-v1`
 
 ## Non-goals
 
