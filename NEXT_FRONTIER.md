@@ -1,5 +1,13 @@
 # Next Frontier
 
-`OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1`
+`OPENRECOMP_ASSURANCE_RV32I_V0_1_RELEASE_CANDIDATE`
 
-Success condition: a clean `openrecomp-assurance` implementation drives the real OpenRecomp RV32I reference path and reaches the complete v0.1 release gate, especially **5/5 seeded semantic divergence detection**.
+Current protected-review target: PR #1 from `rv32i/v0.1-real-v1` into `main`.
+
+Candidate success condition:
+
+- schema/unit/public-safety CI green on the exact PR head;
+- real pinned OpenRecomp RV32I assurance gate green with **5/5** seeded semantic divergences;
+- `docs/release-gate-v0.1.md` evidence audit complete.
+
+After human merge, require the same gates to pass on the resulting `main` commit. Only after that post-merge proof should `v0.1.0` be considered as a separate explicit release action.

@@ -1,0 +1,48 @@
+name: rv32i-real-assurance-v1
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  rv32i-real-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout assurance
+        uses: actions/checkout@v4
+        with:
+          path: assurance
+
+      - name: Checkout pinned OpenRecomp
+        uses: actions/checkout@v4
+        with:
+          repository: fredlday-oss/openrecomp-e07
+          ref: 53d0bce144356f2b4ee7120c5f8c13cb82c4bf90
+          path: openrecomp
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python test dependencies
+        run: python -m pip install jsonschema pytest
+
+      - name: Unit tests
+        working-directory: assurance
+        run: pytest -q
+
+      - name: Real OpenRecomp RV32I assurance gate
+        run: |
+          python assurance/RUN_RV32I_REAL_V1.py \
+            --openrecomp openrecomp \
+            --out assurance/evidence/rv32i-v0.1-real-v1 \
+            --expected-openrecomp-commit 53d0bce144356f2b4ee7120c5f8c13cb82c4bf90
+
+      - name: Upload machine evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrecomp-assurance-rv32i-v0.1-real-v1
+          path: assurance/evidence/rv32i-v0.1-real-v1
+          if-no-files-found: error

@@ -1,0 +1,69 @@
+[
+  {
+    "detected": true,
+    "differences": {
+      "audio_payload_sha256": {
+        "expected": "9c6ff3c02eed3c7ee31a136812214774b069932abc9ca762c1c8691142ecb730",
+        "observed": "d2950400797e4fc2d67bd5d5662c1915915cfed82ed00bb44d1e83af8b6ac6ca"
+      },
+      "checksum": {"expected": 122010428, "observed": 3018207321},
+      "framebuffer_sha256": {
+        "expected": "7f699a0e27f7b42dabc5f4c88d8efcab37d24b05fefb68c31d005e81caefbfe3",
+        "observed": "ce3b228934c961a3704c23308dea4a171088f0602a586305b874176a70058a8f"
+      },
+      "operations": {"expected": 3866, "observed": 2770},
+      "return_a0": {"expected": 48, "observed": 52}
+    },
+    "seed_id": "seed-fib-depth"
+  },
+  {
+    "detected": true,
+    "differences": {
+      "audio_payload_sha256": {
+        "expected": "9c6ff3c02eed3c7ee31a136812214774b069932abc9ca762c1c8691142ecb730",
+        "observed": "3604e0cf002cbeee596154b304e2e04ee8cb8d61f2b3f65b18547f4552c98a44"
+      },
+      "checksum": {"expected": 122010428, "observed": 3239812895},
+      "framebuffer_sha256": {
+        "expected": "7f699a0e27f7b42dabc5f4c88d8efcab37d24b05fefb68c31d005e81caefbfe3",
+        "observed": "ef547e5045144e814b827ceaf4c3434c94147352b0f710430f06f8f0a740fe3d"
+      },
+      "input_calls": {"expected": 5, "observed": 4},
+      "operations": {"expected": 3866, "observed": 3785},
+      "return_a0": {"expected": 48, "observed": 296}
+    },
+    "seed_id": "seed-state-rounds"
+  },
+  {
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 122010428, "observed": 237144144},
+      "framebuffer_sha256": {
+        "expected": "7f699a0e27f7b42dabc5f4c88d8efcab37d24b05fefb68c31d005e81caefbfe3",
+        "observed": "dc320c3610e53f63ab3f2325271784689e0ac940e79c85eae49004fcfd38fa93"
+      },
+      "operations": {"expected": 3866, "observed": 3811},
+      "return_a0": {"expected": 48, "observed": 402}
+    },
+    "seed_id": "seed-rotate-count"
+  },
+  {
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 122010428, "observed": 602508438},
+      "framebuffer_sha256": {
+        "expected": "7f699a0e27f7b42dabc5f4c88d8efcab37d24b05fefb68c31d005e81caefbfe3",
+        "observed": "f869f827ef2025c8407528e5b25547490b85366908432aef2d11a60bfa0c3e9e"
+      },
+      "operations": {"expected": 3866, "observed": 3867}
+    },
+    "seed_id": "seed-graphics-x"
+  },
+  {
+    "detected": true,
+    "differences": {
+      "operations": {"expected": 3866, "observed": 3872}
+    },
+    "seed_id": "seed-audio-op"
+  }
+]
