@@ -17,11 +17,11 @@ jobs:
         with:
           path: assurance
 
-      - name: Checkout pinned OpenRecomp ELF candidate
+      - name: Checkout pinned OpenRecomp merged main
         uses: actions/checkout@v4
         with:
           repository: fredlday-oss/openrecomp-e07
-          ref: 225a3ed250e4d700cb9aaca1213ce584f9b00fe7
+          ref: fa9f9b75aa421728de7f0ff1a0d068ef6f40201e
           path: openrecomp
 
       - uses: actions/setup-python@v5
@@ -47,7 +47,7 @@ jobs:
           python assurance/RUN_MIPS32_ELF_REAL_V1.py \
             --openrecomp openrecomp \
             --out assurance/evidence/mips32-elf-real-v1 \
-            --expected-openrecomp-commit 225a3ed250e4d700cb9aaca1213ce584f9b00fe7
+            --expected-openrecomp-commit fa9f9b75aa421728de7f0ff1a0d068ef6f40201e
 
       - name: Upload machine evidence
         if: always()
