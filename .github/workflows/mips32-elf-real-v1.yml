@@ -1,0 +1,58 @@
+name: mips32-elf-real-assurance-v1
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  mips32-elf-real-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout assurance
+        uses: actions/checkout@v4
+        with:
+          path: assurance
+
+      - name: Checkout pinned OpenRecomp merged main
+        uses: actions/checkout@v4
+        with:
+          repository: fredlday-oss/openrecomp-e07
+          ref: fa9f9b75aa421728de7f0ff1a0d068ef6f40201e
+          path: openrecomp
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install real MIPS linker and test dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y binutils-mipsel-linux-gnu gcc clang
+          python -m pip install jsonschema pytest
+
+      - name: Unit tests
+        working-directory: assurance
+        run: pytest -q
+
+      - name: Real OpenRecomp MIPS32 ELF assurance gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python assurance/RUN_MIPS32_ELF_REAL_V1.py \
+            --openrecomp openrecomp \
+            --out assurance/evidence/mips32-elf-real-v1 \
+            --expected-openrecomp-commit fa9f9b75aa421728de7f0ff1a0d068ef6f40201e
+
+      - name: Upload machine evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openrecomp-assurance-mips32-elf-real-v1
+          path: assurance/evidence/mips32-elf-real-v1
+          if-no-files-found: error

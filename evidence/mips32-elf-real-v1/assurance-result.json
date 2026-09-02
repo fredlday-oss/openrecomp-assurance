@@ -1,0 +1,24 @@
+{
+  "bounded_claim": "For a rights-safe little-endian ELF32 ET_EXEC/EM_MIPS logic-shift executable, two ELF containers with byte-distinct non-allocating assurance-note provenance but identical independently verified semantic .text, their exact rebuild/replays, and five specified valid one-instruction semantic mutations, OpenRecomp bounded ELF ingestion preserves ELF provenance and the independent MIPS32 reference, Core V1, GCC native AOT and Clang native AOT agree on defined semantics; all five mutations are detected. This does not prove arbitrary MIPS32 ELF loading, dynamic linking, relocation/data-section semantics, big-endian ELF or full ISA coverage.",
+  "checks": {
+    "baseline_elf_hashes_distinct": "PASS",
+    "baseline_observables_match": "PASS",
+    "clean_artifact_repeatability": "PASS",
+    "elf_replay_stability": "PASS",
+    "generated_schema_validation": "PASS",
+    "independent_elf_semantic_image_equal": "PASS",
+    "missing_observation_fails_closed": "PASS",
+    "real_openrecomp_commit": "PASS",
+    "reference_core_gcc_clang_agreement": "PASS",
+    "seeded_divergences_5_of_5": "PASS",
+    "wrong_machine_fails_closed": "PASS"
+  },
+  "classification": "PROVEN",
+  "fixture_id": "openrecomp-mips32-elf-real-v1",
+  "schema_version": "0.1",
+  "seeded_divergences": {
+    "detected": 5,
+    "total": 5
+  },
+  "verdict": "PASS"
+}

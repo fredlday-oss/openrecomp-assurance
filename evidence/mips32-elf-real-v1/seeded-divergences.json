@@ -1,0 +1,60 @@
+[
+  {
+    "description": "change addiu immediate 0x1234 to 0x1235",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 891040438},
+      "return_v0": {"expected": 4468, "observed": 4469},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "1b83f270b654befbc57af25a0762d41920b3ef7ee945db28632df1a3ce342678"}
+    },
+    "elf_sha256": "ef447755f0f38c85ef6027c70d416f24f62571141232cd067449b853f1805432",
+    "seed_id": "seed-addiu-immediate",
+    "semantic_text_sha256": "9419accee85859d13a1ddc08c7fb98c0caf25387739eaa9ca374a2929600443a"
+  },
+  {
+    "description": "change ori immediate 0x00f0 to 0x00f1",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1681792314},
+      "return_v0": {"expected": 4468, "observed": 4467},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "059e26b554f09d3a806fedb91544de7d472b2d1f7acc81553c5f79ab60fd0e88"}
+    },
+    "elf_sha256": "2ad3e765bd283b5a57c76ae546afa01bb218378ff66f70a670a4cdf141f4c270",
+    "seed_id": "seed-ori-immediate",
+    "semantic_text_sha256": "9686d20e0498dcfc5e749be03cb01d786f62aa03a1451f3e691a47dba418a8fb"
+  },
+  {
+    "description": "change valid sll shift amount 4 to 3",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1883969915},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "92e9c4b5a026e44389406801e1d78069958e3765957f6a5c999d2710d72ad5a1"}
+    },
+    "elf_sha256": "72e34a3d3597b0ae97bc6d17c6ef19f24ef9a3c45ce3fb83bc31b646f0977d0b",
+    "seed_id": "seed-shift-amount",
+    "semantic_text_sha256": "5ce4f288e2ccf10e3bea6a67bbe402c7827d719abedbe1a8bda1b9dea036f6cb"
+  },
+  {
+    "description": "change valid andi mask 0x00ff to 0x00f0",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1873569335},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "49f71228b4fd2884c2283cb2a97ced7e5723ab17644036630ee5560d627521e5"}
+    },
+    "elf_sha256": "9a166a51ba968c6efcc4985a6490a680271496e9d988eece7dbcf55cf6ec479e",
+    "seed_id": "seed-andi-mask",
+    "semantic_text_sha256": "ff9d1e87f40b8dc258d66ab0b6b2c58aae40a048c2543f1e32fc60473dd56f9f"
+  },
+  {
+    "description": "change final valid addu into subu",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 956180604},
+      "return_v0": {"expected": 4468, "observed": 4294962924},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "e34240117c7b2f524a28c94a4faeea993b05548e0f482db0385db22041baa8d8"}
+    },
+    "elf_sha256": "189566a1b6dba6b1b9d659b34f0792f0a324b73cf2342ae41a25a799490fbacc",
+    "seed_id": "seed-final-arithmetic",
+    "semantic_text_sha256": "9c5c50da0e066b3d8d826dd1bd57ff43539274338f53942eaec638102c9792d2"
+  }
+]
