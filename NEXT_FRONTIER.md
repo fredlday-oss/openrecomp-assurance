@@ -1,13 +1,17 @@
 # Next Frontier
 
-`OPENRECOMP_ASSURANCE_RV32I_V0_1_RELEASE_CANDIDATE`
+`OPENRECOMP_ASSURANCE_MIPS32_REAL_V1`
 
-Current protected-review target: PR #1 from `rv32i/v0.1-real-v1` into `main`.
+Current validation branch: `mips32/real-v1` into protected `main`.
 
 Candidate success condition:
 
-- schema/unit/public-safety CI green on the exact PR head;
-- real pinned OpenRecomp RV32I assurance gate green with **5/5** seeded semantic divergences;
-- `docs/release-gate-v0.1.md` evidence audit complete.
+- existing `schema-and-tests` and `rv32i-real-v1` checks remain green;
+- new `mips32-real-v1` hosted integration is green on the exact PR head;
+- two byte-distinct but instruction-equivalent MIPS32 sources produce identical defined semantics;
+- exact replays reproduce the baseline semantics and deterministic generated artifacts;
+- independent MIPS32 reference = Core V1 = GCC native AOT = Clang native AOT;
+- all **5/5** specified valid MIPS32 semantic mutations are detected;
+- generated evidence validates against the existing assurance schemas.
 
-After human merge, require the same gates to pass on the resulting `main` commit. Only after that post-merge proof should `v0.1.0` be considered as a separate explicit release action.
+Do not add `mips32-real-v1` to the protected required-check set, merge the candidate, or create a new assurance release until the hosted result is proven and reviewed.

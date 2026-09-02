@@ -1,0 +1,50 @@
+[
+  {
+    "description": "change the first addiu immediate from 0x1234 to 0x1235",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 891040438},
+      "return_v0": {"expected": 4468, "observed": 4469},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "1b83f270b654befbc57af25a0762d41920b3ef7ee945db28632df1a3ce342678"}
+    },
+    "seed_id": "seed-addiu-immediate"
+  },
+  {
+    "description": "change the OR-immediate source value from 0x00f0 to 0x00f1",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1681792314},
+      "return_v0": {"expected": 4468, "observed": 4467},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "059e26b554f09d3a806fedb91544de7d472b2d1f7acc81553c5f79ab60fd0e88"}
+    },
+    "seed_id": "seed-ori-immediate"
+  },
+  {
+    "description": "change a valid sll shift amount from 4 to 3",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1883969915},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "92e9c4b5a026e44389406801e1d78069958e3765957f6a5c999d2710d72ad5a1"}
+    },
+    "seed_id": "seed-shift-amount"
+  },
+  {
+    "description": "change a valid andi mask from 0x00ff to 0x00f0",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 1873569335},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "49f71228b4fd2884c2283cb2a97ced7e5723ab17644036630ee5560d627521e5"}
+    },
+    "seed_id": "seed-andi-mask"
+  },
+  {
+    "description": "change the final valid addu into subu",
+    "detected": true,
+    "differences": {
+      "checksum": {"expected": 435263539, "observed": 956180604},
+      "return_v0": {"expected": 4468, "observed": 4294962924},
+      "state_sha256": {"expected": "0d601971796474621603f6483370250ac7d2428b947671121b123869aa2feb5d", "observed": "e34240117c7b2f524a28c94a4faeea993b05548e0f482db0385db22041baa8d8"}
+    },
+    "seed_id": "seed-final-arithmetic"
+  }
+]

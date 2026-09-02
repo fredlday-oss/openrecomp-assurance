@@ -6,7 +6,7 @@ Open infrastructure for deterministic binary translation assurance, reproducible
 
 `openrecomp-assurance` is the architecture-neutral assurance layer for binary translation systems. It does **not** replace a lifter or translator. It verifies what a translation pipeline produced and records enough evidence for another developer to reproduce, replay, compare, and challenge that result.
 
-The initial reference integration is OpenRecomp RV32I. Additional translation systems and guest architectures should be able to integrate through the same contracts.
+The released reference integration is OpenRecomp RV32I. MIPS32 Real V1 is the next bounded guest-architecture integration under validation. Additional translation systems and guest architectures should be able to integrate through the same contracts.
 
 ## Assurance pipeline
 
@@ -35,28 +35,22 @@ assurance-result.json
       +--> PASS / FAIL / BOUNDED / CANDIDATE
 ```
 
-## v0.1 reference objective
+## Released v0.1 reference
 
-Two independently built RV32I inputs that are expected to be semantically equivalent must:
+`v0.1.0` is the first bounded OpenRecomp Assurance release. It contains `OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1`, pins OpenRecomp commit `53d0bce144356f2b4ee7120c5f8c13cb82c4bf90`, and is tagged at assurance commit `fc1030303281e0adb82bb3e45b552edf23f006db`.
 
-1. have distinct source artifact hashes;
-2. pass validated OpenRecomp intake and translation;
-3. produce machine-readable provenance manifests;
-4. execute under controlled deterministic inputs;
-5. produce matching defined observables;
-6. replay stably;
-7. reproduce clean baseline artifacts where reproducibility is claimed;
-8. detect **5/5** deliberately seeded semantic divergences;
-9. emit a machine-readable assurance verdict;
-10. fail closed when evidence is missing or inconsistent.
+The release proves only its stated RV32I E07 scope: byte-distinct equivalent inputs, exact observable agreement, replay stability, repeatable generated AOT evidence, fail-closed missing evidence, and **5/5** seeded semantic-divergence detection. Compact machine evidence is retained under `evidence/rv32i-v0.1-real-v1/`.
 
-A result must never be promoted from `CANDIDATE` or `BOUNDED` to `PROVEN` merely because one run succeeds.
+## Current MIPS32 candidate
 
-## Current v0.1 candidate
+`OPENRECOMP_ASSURANCE_MIPS32_REAL_V1` extends the same assurance discipline to the rights-safe little-endian MIPS32 Expansion V1 `logic-shift` fixture. It adds an independent MIPS32 reference oracle and requires agreement across:
 
-`OPENRECOMP_ASSURANCE_RV32I_V0_1_REAL_V1` is implemented on PR #1 and pins OpenRecomp commit `53d0bce144356f2b4ee7120c5f8c13cb82c4bf90`. Hosted CI has produced a bounded `PASS / PROVEN` result with two byte-distinct equivalent RV32I ELFs, exact baseline observable agreement, replay stability, repeatable generated AOT evidence, fail-closed missing evidence and **5/5** seeded semantic divergence detection.
+- independent MIPS32 reference execution;
+- normalized Core V1;
+- GCC-compiled native AOT;
+- Clang-compiled native AOT.
 
-The compact machine result is retained under `evidence/rv32i-v0.1-real-v1/`. This is a release candidate, not a `v0.1.0` release: the PR must pass final CI, be human-reviewed/merged, and pass the same real gate on `main` before a tag is considered.
+The candidate uses two byte-distinct but instruction-equivalent source records, exact replays, deterministic generated artifacts, complete GPR/HI/LO state hashing, and **5/5** specified valid semantic mutations. The claim remains fixture-bounded; it is not general MIPS32 equivalence.
 
 ## Non-goals
 
@@ -84,9 +78,7 @@ The compact machine result is retained under `evidence/rv32i-v0.1-real-v1/`. Thi
 - **CANDIDATE** — interface/design exists but required validation has not completed.
 - **FAIL** — an asserted contract or gate was violated.
 
-## First release gate
-
-`v0.1.0` must not be tagged until `docs/release-gate-v0.1.md` is fully satisfied on the candidate and the same workflows pass after merge on `main`.
+A result must never be promoted from `CANDIDATE` or `BOUNDED` to `PROVEN` merely because one run succeeds. Each claim must remain explicitly bounded to the evidence actually produced.
 
 ## Licence
 

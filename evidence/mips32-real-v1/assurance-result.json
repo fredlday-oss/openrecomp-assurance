@@ -1,0 +1,23 @@
+{
+  "bounded_claim": "For the rights-safe OpenRecomp MIPS32 expansion-v1 logic-shift fixture, two byte-distinct but instruction-equivalent source records, their exact replays, and five specified valid semantic mutations, the independent MIPS32 reference interpreter, normalized Core V1, GCC native AOT and Clang native AOT agree on the defined semantic observables; every seeded mutation is detected. This does not prove arbitrary MIPS32 binaries, arbitrary endianness, or general MIPS32 ISA coverage.",
+  "checks": {
+    "baseline_decoded_records_equal": "PASS",
+    "baseline_observables_match": "PASS",
+    "clean_artifact_repeatability": "PASS",
+    "generated_schema_validation": "PASS",
+    "missing_evidence_fails_closed": "PASS",
+    "real_openrecomp_commit": "PASS",
+    "reference_core_gcc_clang_agreement": "PASS",
+    "replay_stability": "PASS",
+    "seeded_divergences_5_of_5": "PASS",
+    "source_hashes_distinct": "PASS"
+  },
+  "classification": "PROVEN",
+  "fixture_id": "openrecomp-mips32-real-v1",
+  "schema_version": "0.1",
+  "seeded_divergences": {
+    "detected": 5,
+    "total": 5
+  },
+  "verdict": "PASS"
+}
