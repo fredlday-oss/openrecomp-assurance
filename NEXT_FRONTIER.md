@@ -1,30 +1,40 @@
 # Next Frontier
 
-`OPENRECOMP_ASSURANCE_MIPS32_ELF_REAL_V1`
+`OPENRECOMP_ASSURANCE_V0_2_RELEASE_CANDIDATE`
 
-Current validation branches:
+The MIPS32 ELF assurance milestone is merged and promoted. The release candidate is based on assurance `main` commit:
 
-- OpenRecomp: `mips32/elf-ingestion-v1` via PR #25;
-- OpenRecomp Assurance: `mips32/elf-real-v1` via PR #3.
+```text
+f8c1aa32c57ad2fca64b6e011ab98f21e963047d
+```
 
-Candidate evidence currently proves, against OpenRecomp candidate `225a3ed250e4d700cb9aaca1213ce584f9b00fe7`:
+and pins merged OpenRecomp `main` commit:
 
-- real GNU-linked little-endian ELF32 `ET_EXEC` / `EM_MIPS` ingestion;
-- an independent assurance ELF parser agrees on entry, function layout and semantic `.text`;
-- byte-distinct equivalent ELF containers preserve identical semantics;
-- exact ELF rebuild/replay stability;
-- independent MIPS32 reference = Core V1 = GCC native AOT = Clang native AOT;
-- ELF SHA-256 provenance agrees across the normalized pipeline;
-- all **5/5** full-ELF semantic mutations are detected;
-- wrong-machine and missing-observation evidence fail closed;
-- the existing `schema-and-tests`, `rv32i-real-v1` and `mips32-real-v1` assurance checks remain green.
+```text
+fa9f9b75aa421728de7f0ff1a0d068ef6f40201e
+```
 
-Promotion sequence:
+## Proven bounded scope on merged `main`
 
-1. Human-merge OpenRecomp PR #25 only after its complete protected regression matrix is green.
-2. Require `MIPS32 ELF ingestion V1` to reproduce on the resulting OpenRecomp `main` commit.
-3. Update assurance PR #3 to pin that merged OpenRecomp commit instead of the candidate SHA.
-4. Rerun the full assurance matrix and preserve fresh merged-upstream evidence.
-5. Only then consider merging assurance PR #3 and promoting `mips32-elf-real-v1` into the protected required-check set.
+- RV32I real assurance V1: **PASS / PROVEN_BOUNDED**;
+- MIPS32 real assurance V1: **PASS / PROVEN_BOUNDED**;
+- MIPS32 real ELF ingestion assurance V1: **PASS / PROVEN_BOUNDED**;
+- all three real gates reproduce on merged assurance `main`;
+- `schema-and-tests` also reproduces on merged assurance `main`;
+- `Protect main` requires all four stable contexts with strict required-status-check policy enabled.
 
-Do not claim arbitrary MIPS32 ELF loading, dynamic linking, relocation/data-section semantics, big-endian ELF or full ISA coverage from this bounded gate.
+## v0.2.0 promotion sequence
+
+1. Merge the release-prep PR only if its exact head passes all four protected contexts.
+2. Verify all four contexts reproduce on the resulting assurance `main` commit.
+3. Confirm the release tag `v0.2.0` does not already exist.
+4. Create `v0.2.0` on that exact post-merge assurance `main` commit as a separate explicit release action.
+5. Preserve the bounded claim language from `docs/release-gate-v0.2.md` and `docs/release-notes-v0.2.0.md`.
+
+Do not claim arbitrary RV32I equivalence, arbitrary MIPS32 equivalence, arbitrary MIPS32 ELF loading, dynamic linking, relocation/data-section semantics, big-endian ELF, or full ISA coverage from v0.2.0.
+
+## Engineering frontier after v0.2.0
+
+`OPENRECOMP_ASSURANCE_MIPS32_ELF_STATIC_MEMORY_V1`
+
+The next technical milestone should extend the currently text-only MIPS32 ELF proof to a bounded static-memory executable with `.rodata`, initialized `.data`, zero-initialized `.bss`, deterministic loader layout, guest loads/stores, independent memory-layout evidence, replay stability, and seeded loader/semantic divergence tests.
