@@ -6,7 +6,7 @@
 
 It is intentionally narrower than “MIPS32 ELF support.” The proof fixture is rights-safe, little-endian, statically linked, text-only and uses the already bounded MIPS32 Expansion V1 instruction semantics.
 
-The validation branch initially pins the OpenRecomp ELF-ingestion candidate commit documented by the hosted workflow. Before final assurance merge, the pin should be moved to the resulting OpenRecomp `main` commit after that upstream candidate is human-merged and revalidated.
+The merged assurance workflow pins merged OpenRecomp `main` commit `fa9f9b75aa421728de7f0ff1a0d068ef6f40201e`. The assurance milestone is merged at `f8c1aa32c57ad2fca64b6e011ab98f21e963047d` and reproduced all required gates on that exact `main` commit.
 
 ## Independent ELF evidence
 
@@ -80,7 +80,7 @@ openrecomp.mips32-elf-expansion-v1
 
 ## Five semantic seeds
 
-The five one-instruction mutations are the already proven MIPS32 Real V1 mutations, now rebuilt as complete ELF executables:
+The five one-instruction mutations are the already proven MIPS32 Real V1 mutations, rebuilt as complete ELF executables:
 
 1. `addiu` immediate `0x1234 -> 0x1235`;
 2. `ori` immediate `0x00f0 -> 0x00f1`;
@@ -117,6 +117,14 @@ It does **not** prove:
 - full MIPS32 ISA coverage;
 - `div` / `divu` outside an architecture-neutral normalized semantic contract;
 - proprietary binary compatibility.
+
+## Merged-main evidence
+
+- Assurance `main`: `f8c1aa32c57ad2fca64b6e011ab98f21e963047d`
+- OpenRecomp pin: `fa9f9b75aa421728de7f0ff1a0d068ef6f40201e`
+- Workflow run: `33670612738`
+- Artifact ID: `9862381416`
+- Artifact SHA-256: `f9baf9f0aa1929320b0a3ddb23560f2779ebd42236e64a2bd9c6d7750fe15687`
 
 ## Required markers
 
