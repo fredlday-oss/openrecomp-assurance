@@ -2,13 +2,13 @@
 
 `OPENRECOMP_ASSURANCE_MIPS32_ELF_STATIC_MEMORY_V1` extends the bounded real MIPS32 ELF assurance path to static memory initialization and guest memory effects.
 
-## Candidate pin
+## Merged upstream pin
 
-The validation branch initially pins OpenRecomp candidate commit:
+The validation branch is pinned to the merged OpenRecomp `main` commit that introduced bounded MIPS32 ELF static-memory V1:
 
-`2a5ec1017ef951bbc39a10fd8fb6341c2a42aa54`
+`832ca4133ce9ef71b3d5ada45bad643a65a8fa6c`
 
-After the upstream OpenRecomp PR is merged, the assurance candidate must be repinned to the resulting OpenRecomp `main` commit and all assurance workflows must reproduce before merge.
+OpenRecomp PR #26 was first rebased onto the current IR V1.1/divrem-enabled main line, passed the complete 18-workflow PR matrix, was squash-merged, and its static-memory workflow reproduced successfully on the resulting `main` commit before this assurance repin.
 
 ## Independent assurance evidence
 
@@ -45,7 +45,7 @@ The independent reference, Core, GCC AOT and Clang AOT must agree on complete bo
 
 Baseline A and B have identical independently verified `.text`, `.rodata`, `.data` and `.bss` semantics, but different non-allocating assurance-note bytes. Therefore their full ELF SHA-256 hashes must differ while their defined observables remain identical.
 
-Each baseline is rebuilt independently. The complete ELF container, normalized IR, Module Image, portable C AOT and Native ABI evidence must reproduce byte-for-byte.
+Each baseline is rebuilt independently. The complete ELF container and static image must reproduce exactly. Per-variant IR, Module Image, portable C AOT and Native ABI generation is independently checked for byte repeatability within each variant; replay fixtures use distinct fixture identities and therefore do not require identity-bearing generated JSON to be byte-identical across differently named runs.
 
 ## Five seeded divergences
 
