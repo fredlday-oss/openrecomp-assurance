@@ -12,7 +12,7 @@ from pathlib import Path
 
 from harness.compare.mips32_observables import require_mips32_equal
 
-OPENRECOMP_STATIC_MEMORY_PIN = "2a5ec1017ef951bbc39a10fd8fb6341c2a42aa54"
+OPENRECOMP_STATIC_MEMORY_PIN = "832ca4133ce9ef71b3d5ada45bad643a65a8fa6c"
 ADAPTER_ID = "openrecomp.mips32-elf-static-memory-v1"
 BASE_RODATA_WORD = 0x11223344
 BASE_DATA_WORD = 0x01020304
