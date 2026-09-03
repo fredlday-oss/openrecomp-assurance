@@ -46,12 +46,23 @@ def validate_generated(root: Path, generated: Path) -> None:
 
 
 def require_repeatable(original, replay, label: str) -> None:
+    # The replay intentionally uses a different fixture_id so generated module/run
+    # identity fields differ. Exact IR/Module/AOT/ABI generation repeatability is
+    # already enforced twice inside each run_variant call. Cross-replay evidence
+    # therefore compares the full linked ELF, independently parsed semantic/static
+    # image, and defined execution observables rather than raw identity-bearing JSON.
     if original.elf_path.read_bytes() != replay.elf_path.read_bytes():
         raise MIPS32ELFStaticMemoryAssuranceError(f"{label}: full linked ELF is not byte-repeatable")
+    if original.independent.semantic_text != replay.independent.semantic_text:
+        raise MIPS32ELFStaticMemoryAssuranceError(f"{label}: semantic .text differs on replay")
+    for name in (".rodata", ".data", ".bss"):
+        a = original.independent.sections[name]
+        b = replay.independent.sections[name]
+        if (a.address, a.data, a.zero_fill, a.writable, a.executable) != (
+            b.address, b.data, b.zero_fill, b.writable, b.executable
+        ):
+            raise MIPS32ELFStaticMemoryAssuranceError(f"{label}: {name} static image differs on replay")
     require_mips32_equal(original.reference_result, replay.reference_result)
-    for key in ("ir-v1", "module-v1", "aot-c", "native-abi-c"):
-        if original.artifacts[key].read_bytes() != replay.artifacts[key].read_bytes():
-            raise MIPS32ELFStaticMemoryAssuranceError(f"{label}: {key} is not byte-repeatable")
 
 
 def _cstr(blob: bytes, offset: int) -> str:
@@ -158,7 +169,7 @@ def main() -> int:
         require_repeatable(base_a, replay_a, "baseline A")
         require_repeatable(base_b, replay_b, "baseline B")
         checks["elf_replay_stability"] = "PASS"
-        checks["generated_artifact_repeatability"] = "PASS"
+        checks["per_variant_generated_artifact_repeatability"] = "PASS"
 
         seed_report = []
         for seed in SEEDS:
@@ -231,7 +242,7 @@ def main() -> int:
             f"- Equivalent defined observables: **{checks['baseline_observables_match']}**",
             f"- Reference/Core/GCC/Clang agreement: **{checks['reference_core_gcc_clang_agreement']}**",
             f"- Exact ELF replay stability: **{checks['elf_replay_stability']}**",
-            f"- Generated IR/Module/AOT repeatability: **{checks['generated_artifact_repeatability']}**",
+            f"- Per-variant generated IR/Module/AOT repeatability: **{checks['per_variant_generated_artifact_repeatability']}**",
             f"- Seeded loader/semantic divergences: **{detected}/{len(SEEDS)}**",
             f"- Invalid static permission fail-closed: **{checks['invalid_static_permission_fails_closed']}**",
             f"- Missing observation fail-closed: **{checks['missing_observation_fails_closed']}**", "",
